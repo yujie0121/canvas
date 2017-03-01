@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/canvas/remote"
 	"fmt"
+	"github.com/yujie0121/canvas/remote"
 )
 
 func main() {

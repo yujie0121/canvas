@@ -5,11 +5,11 @@ import (
 	"log"
 	"encoding/json"
 	"io/ioutil"
-	"github.com/canvas/model"
-	"github.com/canvas/persistence/redis"
-	"github.com/canvas/util"
 	"strings"
 	"time"
+	"github.com/yujie0121/canvas/model"
+	"github.com/yujie0121/canvas/util"
+	"github.com/yujie0121/canvas/persistence/redis"
 )
 
 
