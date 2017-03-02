@@ -11,7 +11,7 @@
 
 ## Environment Variables for Configuration
 
-* **HTTP_ADDR:** The host and port. Default: `":8888"`
+* **HTTP_ADDR:** The host and port. Default: `":80"`
 
 * **HTTP_CERT_FILE:** Path to cert file. Default: `""`
 
