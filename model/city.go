@@ -7,7 +7,6 @@ type City struct {
 		Wendu string `json:"wendu"`
 		Ganmao string `json:"ganmao"`
 		Forecast []Weather `json:"forecast"`
-		Name string `json:"city"` 
 		Yesterday struct{
 			Fl string `json:"fl"`
 			Fx string `json:"fx"`

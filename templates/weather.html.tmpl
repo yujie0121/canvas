@@ -1,0 +1,57 @@
+{{define "content"}}
+<div class="container">
+  <div class="row">
+    <div class="jumbotron">
+
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+
+      {{with .Data}}
+
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">{{.City}}天气</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>天气</th>
+              <th>风向</th>
+              <th>风力</th>
+              <th>高温</th>
+              <th>低温</th>
+              <th>日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range .Forecast}}
+            <tr>
+              <td>{{.Status}}</td>
+              <td>{{.Fengxiang}}</td>
+              <td>{{.Fengli}}</td>
+              <td>{{.High}}</td>
+              <td>{{.Low}}</td>
+              <td>{{.Date}}</td>
+            </tr>
+            {{end}}
+            </tbody>
+          </table>
+
+          {{end}}
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <p>This is something about weather.</p>
+    </div>
+  </div>
+</div>
+{{end}}
