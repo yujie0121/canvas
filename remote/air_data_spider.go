@@ -58,6 +58,11 @@ func GetAirData(cityName string) model.City {
 				log.Fatal("transfer json error!")
 			}
 
+			if(c.Status == 1002){
+				log.Print("city doesn't exist!")
+				return c
+			}
+
 			//放入缓存 30秒过期
 			go redis.SetValue(util.KEY_PREFIX+cityName, string(jsonValue), time.Hour*2)
 
