@@ -59,7 +59,7 @@ func GetAirData(cityName string) model.City {
 			}
 
 			//放入缓存 30秒过期
-			go redis.SetValue(util.KEY_PREFIX+cityName, string(jsonValue), time.Second*30)
+			go redis.SetValue(util.KEY_PREFIX+cityName, string(jsonValue), time.Hour*2)
 
 			log.Println("city["+cityName+"] info put in redis successfully!")
 		}
