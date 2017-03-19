@@ -5,10 +5,43 @@
 
       <form enctype="multipart/form-data" action="/upload" method="post">
         <input type="file" name="uploadfile" />
-        <input type="hidden" name="token" value="{{.}}"/>
+        <input type="hidden" name="token" value="{{.Token}}"/>
         <br/>
         <input type="submit" value="upload" />
       </form>
+
+
+      <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">展示图片</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="images" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>图片名</th>
+                    <th>类型</th>
+                    <th>目录</th>
+                    <th>图片</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {{range .Images}}
+                  <tr>
+                    <td>{{.Name}}</td>
+                    <td>{{.Type}}</td>
+                    <td>{{.Directory}}</td>
+                    <td><a href="{{.Url}}"><img width="80px" height="50px" src="{{.Url}}"/></a></td>
+                  </tr>
+                  {{end}}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+
+
 
 
       <p>Please select the file you want to upload.</p>

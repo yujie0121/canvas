@@ -10,6 +10,9 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"io/ioutil"
+	"github.com/yujie0121/canvas/model"
+	"strings"
 )
 
 func Upload(w http.ResponseWriter, r *http.Request) {
@@ -26,7 +29,16 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		tmpl.Execute(w, token)
+
+
+		images :=getAllImages( r)
+
+		data := model.ImageData{
+			Token: token,
+			Images: images,
+		}
+
+		tmpl.Execute(w, data)
 	} else {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
@@ -44,4 +56,41 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		defer f.Close()
 		io.Copy(f, file)
 	}
+}
+
+func GetImage(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.Host)
+	imageName := r.FormValue("name")
+	f, err := os.Open("./static/files/"+imageName)
+	handleErr(err, w)
+	buffer, err := ioutil.ReadAll(f)
+	handleErr(err, w)
+	defer f.Close()
+	w.Write(buffer)
+}
+
+func handleErr(err error, w http.ResponseWriter)  {
+	if  err != nil {
+		w.Write([]byte(err.Error()))
+	}
+}
+
+func getAllImages(r *http.Request) []model.Image {
+	var images []model.Image
+	files, _ := ioutil.ReadDir("./static/files/")
+	for _, f := range files {
+		namesli := strings.Split(f.Name(), ".")
+		suffix := strings.ToUpper(namesli[1])
+		if(len(namesli) == 2 && (suffix == "JPG" || suffix == "JPEG" ||suffix == "PNG")){
+			images = append(images, model.Image{
+				Name: namesli[0],
+				Type: suffix,
+				Directory: "static/files/",
+				Url: template.URL("http://"+ r.Host+"/image?name="+f.Name()),
+			})
+		}
+
+	}
+
+	return images
 }
