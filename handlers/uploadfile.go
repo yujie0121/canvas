@@ -17,7 +17,7 @@ import (
 
 func Upload(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method) //获取请求的方法
-	fmt.Println("source:", r.RemoteAddr) //获取请求的方法
+	fmt.Println("source:", r.RemoteAddr) //请求来源
 	crutime := time.Now().Unix()
 	h := md5.New()
 	io.WriteString(h, strconv.FormatInt(crutime, 10))
