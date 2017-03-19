@@ -82,7 +82,7 @@ func getAllImages(r *http.Request) []model.Image {
 	for _, f := range files {
 		namesli := strings.Split(f.Name(), ".")
 		suffix := strings.ToUpper(namesli[1])
-		if(len(namesli) == 2 && (suffix == "JPG" || suffix == "JPEG" ||suffix == "PNG")){
+		if(len(namesli) == 2 && (suffix == "GIF" || suffix == "JPG" || suffix == "JPEG" ||suffix == "PNG")){
 			images = append(images, model.Image{
 				Name: namesli[0],
 				Type: suffix,
