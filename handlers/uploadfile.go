@@ -13,11 +13,13 @@ import (
 	"io/ioutil"
 	"github.com/yujie0121/canvas/model"
 	"strings"
+	"github.com/Sirupsen/logrus"
 )
 
 func Upload(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("method:", r.Method) //获取请求的方法
-	fmt.Println("source:", r.RemoteAddr) //请求来源
+	//获取请求的方法和请求来源
+	logrus.Info("method:", r.Method,"; ","source:", r.RemoteAddr)
+
 	crutime := time.Now().Unix()
 	h := md5.New()
 	io.WriteString(h, strconv.FormatInt(crutime, 10))
