@@ -17,29 +17,12 @@ import (
 
 func Upload(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method) //获取请求的方法
-	if r.Method == "GET" {
-		crutime := time.Now().Unix()
-		h := md5.New()
-		io.WriteString(h, strconv.FormatInt(crutime, 10))
-		token := fmt.Sprintf("%x", h.Sum(nil))
 
-		tmpl, err := template.ParseFiles("templates/dashboard.html.tmpl", "templates/uploadfile.html.tmpl")
-		if err != nil {
-			libhttp.HandleErrorJson(w, err)
-			return
-		}
-
-
-
-		images :=getAllImages( r)
-
-		data := model.ImageData{
-			Token: token,
-			Images: images,
-		}
-
-		tmpl.Execute(w, data)
-	} else {
+	crutime := time.Now().Unix()
+	h := md5.New()
+	io.WriteString(h, strconv.FormatInt(crutime, 10))
+	token := fmt.Sprintf("%x", h.Sum(nil))
+	if r.Method == "POST" {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
 		if err != nil {
@@ -47,7 +30,8 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		defer file.Close()
-		fmt.Fprintf(w, "%v", handler.Header)
+
+		//fmt.Fprintf(w, "%v", handler.Header)
 		f, err := os.OpenFile("./static/files/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
 			fmt.Println(err)
@@ -56,6 +40,23 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		defer f.Close()
 		io.Copy(f, file)
 	}
+
+	tmpl, err := template.ParseFiles("templates/dashboard.html.tmpl", "templates/uploadfile.html.tmpl")
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+
+
+
+	images :=getAllImages( r)
+
+	data := model.ImageData{
+		Token: token,
+		Images: images,
+	}
+
+	tmpl.Execute(w, data)
 }
 
 func GetImage(w http.ResponseWriter, r *http.Request) {
