@@ -1,0 +1,17 @@
+{{define "content"}}
+<div class="container">
+  <div class="row">
+    <div class="jumbotron">
+
+      <form enctype="multipart/form-data" action="/upload" method="post">
+        <input type="file" name="uploadfile" />
+        <input type="hidden" name="token" value="{{.}}"/>
+        <input type="submit" value="upload" />
+      </form>
+
+
+      <p>Please select the file you want to upload.</p>
+    </div>
+  </div>
+</div>
+{{end}}

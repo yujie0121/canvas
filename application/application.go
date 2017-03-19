@@ -44,6 +44,8 @@ func (app *Application) mux() *gorilla_mux.Router {
 
 	router.Handle("/weather", http.HandlerFunc(handlers.GetWeather)).Methods("GET")
 
+	router.Handle("/upload", http.HandlerFunc(handlers.Upload)).Methods("GET", "POST")
+
 	// Path of static files must be last!
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
 
