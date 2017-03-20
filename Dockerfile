@@ -7,7 +7,7 @@ RUN go get github.com/tools/godep
 ADD . /go/src/github.com/yujie0121/canvas
 
 ENV USER root
-ENV HTTP_ADDR :8888
+ENV HTTP_ADDR :8090
 ENV HTTP_DRAIN_INTERVAL 1s
 ENV COOKIE_SECRET jc4lKaPPMBh7bxAb
 
@@ -18,5 +18,5 @@ WORKDIR /go/src/github.com/yujie0121/canvas
 
 RUN godep go build
 
-EXPOSE 8888
+EXPOSE 8090
 CMD ./canvas
