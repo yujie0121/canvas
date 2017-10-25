@@ -45,7 +45,7 @@ func GetValue(key string) string {
 
 func SetValue(key string, value string, exp time.Duration) {
 
-	opts := buntdb.SetOptions{
+	opts := &buntdb.SetOptions{
 		Expires: true,
 		TTL: exp,
 	}
