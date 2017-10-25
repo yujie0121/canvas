@@ -9,7 +9,8 @@ import (
 	"time"
 	"github.com/yujie0121/canvas/model"
 	"github.com/yujie0121/canvas/util"
-	"github.com/yujie0121/canvas/persistence/redis"
+	//"github.com/yujie0121/canvas/persistence/redis"
+	"github.com/yujie0121/canvas/persistence/buntdb"
 )
 
 
@@ -30,7 +31,8 @@ func GetAirData(cityName string) model.City {
 		}
 	}*/
 
-	jsonStr := redis.GetValue(util.KEY_PREFIX+cityName)
+	jsonStr := buntdb.GetValue(util.KEY_PREFIX+cityName)
+	//jsonStr := redis.GetValue(util.KEY_PREFIX+cityName)
 	if  strings.Trim(jsonStr, " ") != ""{
 		err := json.Unmarshal([]byte(jsonStr), &c)
 		if err != nil{
@@ -63,8 +65,8 @@ func GetAirData(cityName string) model.City {
 				return c
 			}
 
-			//放入缓存 30秒过期
-			go redis.SetValue(util.KEY_PREFIX+cityName, string(jsonValue), time.Hour*2)
+			//放入缓存 2小时过期
+			go buntdb.SetValue(util.KEY_PREFIX+cityName, string(jsonValue), time.Hour*2)
 
 			log.Println("city["+cityName+"] info put in redis successfully!")
 		}
