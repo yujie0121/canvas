@@ -2,7 +2,7 @@ package redis
 
 import (
 	"gopkg.in/redis.v5"
-	"log"
+	//"log"
 	"time"
 )
 
@@ -13,31 +13,40 @@ func init() {
 }
 
 func newClient() {
-	client = redis.NewClient(&redis.Options{
+	/*client = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
 
 	pong, err := client.Ping().Result()
-	log.Print(pong, err)
+	log.Print(pong, err)*/
 	// Output: PONG <nil>
 }
 
 func GetValue(key string) string {
+
+	return ""
+	/*if(client == nil){
+		return ""
+	}
 	val, err := client.Get(key).Result()
 	if err == redis.Nil {
 		log.Print(key + " does not exists")
 	} else if err != nil {
-		panic(err)
+		return ""
+		//panic(err)
 	}
-	return val
+	return val*/
 }
 
 func SetValue(key string, value string, exp time.Duration) {
+	/*if(client == nil){
+		return
+	}
 	err := client.Set(key, value, exp).Err()
 	if err != nil {
-		panic(err)
-	}
+		//panic(err)
+	}*/
 
 }
